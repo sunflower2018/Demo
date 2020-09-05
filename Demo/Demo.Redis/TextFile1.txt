@@ -1,0 +1,10 @@
+﻿1、https://github.com/tporadowski/redis/releases 下载安装包，解压
+2、双击redis-server.exe则启动了redis服务器
+3、双击redis-cli.exe命令行工具即可测试缓存
+3、redis可以指定的配置文件启动：
+cmd命令进入redis服务器所在文件夹，然后运行 redis-server redis.windows5500.conf，
+其中5500是一个新的配置文件（指定了5500端口）
+4、命令行工具可以连接指定端口的redis服务器：例如 redis-cli -p 5500
+5、redis发布订阅模式：
+开启两个 redis-cli 客户端工具， 一个订阅某频道，一个发布消息
+订阅某频道（例如：msg）：subscribe msg  向某频道（例如：msg）发布消息：publish msg hi 
