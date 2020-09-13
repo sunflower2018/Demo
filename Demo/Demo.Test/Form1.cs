@@ -21,6 +21,7 @@ namespace Demo.Test
         private void button1_Click(object sender, EventArgs e)
         {
 
+
             MyRedis redis = new MyRedis();
             redis.ConnectDb();
             redis.OpenDb();
