@@ -20,12 +20,10 @@ namespace Demo.Test
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             MyRedis redis = new MyRedis();
             redis.ConnectDb();
             redis.OpenDb();
             redis.subscrib("msg", (rc, rv) => { MessageBox.Show((string)rv); });
-
         }
 
         private void button2_Click(object sender, EventArgs e)
