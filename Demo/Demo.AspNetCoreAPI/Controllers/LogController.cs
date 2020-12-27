@@ -20,7 +20,7 @@ namespace Demo.AspNetCoreAPI.Controllers
         {
             this.logger = logger;
             this.logger_nlog = NLog.LogManager.GetCurrentClassLogger();
-            this.loger_log4net = log4net.LogManager.GetLogger(Startup.repository.Name, typeof(Log4NetController));
+            this.loger_log4net = log4net.LogManager.GetLogger(Startup.repository.Name, typeof(LogController));
         }
         public string Index()
         {
