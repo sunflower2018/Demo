@@ -1,0 +1,21 @@
+﻿Log4Net日志
+1、nuget 安log4net
+2、添加配置文件log4net.config【内容从网上找】
+3、startup.cs  中添加类变量
+   public static ILoggerRepository repository { get; set; }
+4、startup构造函数红
+   repository = LogManager.CreateRepository("NETCoreRepository");                       
+   XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
+
+Nlog日
+1、nuget 安NLog.Web.AspNetCore
+2、添加配置文件nlog.config【内容从网上找】
+3、program.cs  UseNLog
+   public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)               
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();                    
+                }).UseNLog();
+4、controller中添加类变量
+    private readonly Logger _logger = NLog.LogManager.GetCurrentClassLogger();

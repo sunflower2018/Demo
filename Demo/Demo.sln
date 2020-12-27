@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.WebApi", "Demo.WebApi\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.MvcWebApp", "Demo.MvcWebApp\Demo.MvcWebApp.csproj", "{8C4839AF-BA4E-4329-B317-CDAF00628D8E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.AspNetCoreAPI", "Demo.AspNetCoreAPI\Demo.AspNetCoreAPI.csproj", "{FB909DB8-96DB-4472-B516-8EB5AB147B9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{8C4839AF-BA4E-4329-B317-CDAF00628D8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C4839AF-BA4E-4329-B317-CDAF00628D8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C4839AF-BA4E-4329-B317-CDAF00628D8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB909DB8-96DB-4472-B516-8EB5AB147B9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB909DB8-96DB-4472-B516-8EB5AB147B9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB909DB8-96DB-4472-B516-8EB5AB147B9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB909DB8-96DB-4472-B516-8EB5AB147B9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
