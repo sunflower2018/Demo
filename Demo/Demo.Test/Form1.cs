@@ -22,6 +22,7 @@ namespace Demo.Test
         {
             MyRedis redis = new MyRedis();
             redis.ConnectDb();
+
             redis.OpenDb();
             redis.subscrib("msg", (rc, rv) => { MessageBox.Show((string)rv); });
         }
