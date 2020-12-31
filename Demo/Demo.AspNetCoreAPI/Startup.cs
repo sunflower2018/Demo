@@ -24,10 +24,8 @@ namespace Demo.AspNetCoreAPI
         public static ILoggerRepository repository { get; set; }
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
-
-            
-            //配置Log4Net
+            Configuration = configuration;       
+            //配置Log4Net.
             repository = LogManager.CreateRepository("NETCoreRepository");
             XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
         }
