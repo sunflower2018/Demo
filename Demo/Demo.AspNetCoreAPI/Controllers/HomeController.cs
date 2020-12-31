@@ -18,7 +18,7 @@ namespace Demo.AspNetCoreAPI.Controllers
         [Route("[controller]")]
         public IActionResult Index(string userName, string pwd)
         {                            
-            return BadRequest(new { message = "username or password is incorrect." });           
+            return BadRequest(new { message = "username or password is incorrect." });          
         }
     }
 }
