@@ -23,6 +23,6 @@ namespace Demo.AspNetCoreAPI
                 {
                     webBuilder.UseStartup<Startup>();                    
                 }).UseNLog();
-            //202012312230
+            //202101010000
     }
 }
