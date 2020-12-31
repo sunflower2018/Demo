@@ -15,6 +15,7 @@ namespace Demo.AspNetCoreAPI.Controllers
     public class HomeController : Controller
     {
         [AllowAnonymous]
+        [Route("[controller]")]
         public IActionResult Index(string userName, string pwd)
         {                            
             return BadRequest(new { message = "username or password is incorrect." });           
