@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using Demo.AspNetCoreAPI.Token;
+using log4net;
 using log4net.Config;
 using log4net.Repository;
 using Microsoft.AspNetCore.Authentication;
@@ -11,23 +12,25 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Demo.AspNetCoreAPI
 {
     public class Startup
     {
-        public static ILoggerRepository repository { get; set; }
+        public static ILoggerRepository Repository { get; set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;       
             //配置Log4Net.
-            repository = LogManager.CreateRepository("NETCoreRepository");
-            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
+            Repository = LogManager.CreateRepository("NETCoreRepository");
+            XmlConfigurator.Configure(Repository, new FileInfo("log4net.config"));
         }
 
         public IConfiguration Configuration { get; }
@@ -38,11 +41,24 @@ namespace Demo.AspNetCoreAPI
             services.AddControllers();
 
             //注册jwt认证服务
-            //services.AddAuthentication(p =>
-            //{
-            //    p.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    p.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //});
+            var jwtconfig = Configuration.GetSection("Jwt").Get<JWTConfig>();
+            services.AddAuthentication(p =>
+            {
+                p.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                p.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(option =>
+            {
+                option.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = jwtconfig.Issuer,
+                    ValidAudience = jwtconfig.Audience,
+                    ValidateIssuer = true,
+                    ValidateLifetime = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtconfig.IssuerSigningKey)),
+                    // 缓冲过期时间，总的有效时间等于这个时间加上jwt的过期时间，如果不配置，默认是5分钟
+                    ClockSkew = TimeSpan.FromSeconds(3)
+                };
+            }); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,8 +73,8 @@ namespace Demo.AspNetCoreAPI
 
             app.UseRouting();
 
-            //JWT身份认证
-            //app.UseAuthorization();
+            //启用JWT身份认证
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -7,17 +8,24 @@ using System.Text;
 using System.Threading.Tasks;
 using Demo.AspNetCoreAPI.Token;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Demo.AspNetCoreAPI.Controllers
 {
     public class LoginController : Controller
     {
+        readonly IConfiguration cfg;
+        public LoginController(IConfiguration cfg)
+        {
+            this.cfg = cfg;
+        }
+        [Route("[controller]")]
         public IActionResult Index(string uname,string pwd)
         {
-            JWTConfig jwtconfig = new JWTConfig();
 
-
+            JWTConfig jwtconfig = new JWTConfig(); 
+            cfg.GetSection("JWT").Bind(jwtconfig);
             var claim = new Claim[]{
             new Claim("UserName", "lb")
         };
