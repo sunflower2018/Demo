@@ -17,8 +17,9 @@ namespace Demo.AspNetCoreAPI.Controllers
         [Route("[controller]")]
         [Authorize]
         public IActionResult Index()
-        {                            
-            return BadRequest(new { message = "username or password is incorrect." });          
+        {
+            return Ok(new { message = "Jwt认证通过" });
+            //return BadRequest(new { message = "username or password is incorrect." });          
         }
     }
 }

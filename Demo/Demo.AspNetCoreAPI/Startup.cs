@@ -58,7 +58,9 @@ namespace Demo.AspNetCoreAPI
                     // 缓冲过期时间，总的有效时间等于这个时间加上jwt的过期时间，如果不配置，默认是5分钟
                     ClockSkew = TimeSpan.FromSeconds(3)
                 };
-            }); 
+            });
+            services.AddOptions().Configure<JWTConfig>(Configuration.GetSection("Jwt"));
+            services.AddDirectoryBrowser(); //注入目录浏览服务;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,18 +70,26 @@ namespace Demo.AspNetCoreAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            else
+            {
+                app.UseExceptionHandler("/Error");
+            }
+            
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
             //启用JWT身份认证
-            app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();  //如果没有这个，会报500错误
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });            
+            });
+            app.UseDirectoryBrowser();
+            app.UseStaticFiles();
+            
+           
         }
     }
 }

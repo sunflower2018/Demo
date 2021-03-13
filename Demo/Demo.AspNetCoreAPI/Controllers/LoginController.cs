@@ -12,7 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Demo.AspNetCoreAPI.Controllers
-{
+{    
     public class LoginController : Controller
     {
         readonly IConfiguration cfg;
@@ -23,7 +23,6 @@ namespace Demo.AspNetCoreAPI.Controllers
         [Route("[controller]")]
         public IActionResult Index(string uname,string pwd)
         {
-
             JWTConfig jwtconfig = new JWTConfig(); 
             cfg.GetSection("JWT").Bind(jwtconfig);
             var claim = new Claim[]{
@@ -36,10 +35,9 @@ namespace Demo.AspNetCoreAPI.Controllers
                 audience: jwtconfig.Audience,
                 claims: claim,
                 notBefore: DateTime.Now,
-                expires: DateTime.Now.AddSeconds(30),
-                signingCredentials: creds);
-
-            return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });          
+                expires: DateTime.Now.AddMinutes(jwtconfig.AccessTokenExpiresMinutes),
+                signingCredentials: creds);             
+            return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
         }
     }
 }
