@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Demo.AspNetCoreAPI.Token;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -19,7 +20,7 @@ namespace Demo.AspNetCoreAPI.Controllers
         public LoginController(IConfiguration cfg)
         {
             this.cfg = cfg;
-        }
+        }    
         [Route("[controller]")]
         public IActionResult Index(string uname,string pwd)
         {

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -39,6 +40,7 @@ namespace Demo.AspNetCoreAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddControllersWithViews();
 
             //注册jwt认证服务
             var jwtconfig = Configuration.GetSection("Jwt").Get<JWTConfig>();
@@ -76,20 +78,30 @@ namespace Demo.AspNetCoreAPI
             }
             
             app.UseHttpsRedirection();
-            app.UseRouting();
-
+            app.UseRouting();           
             //启用JWT身份认证
             app.UseAuthentication();
             app.UseAuthorization();  //如果没有这个，会报500错误
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers();                
             });
             app.UseDirectoryBrowser();
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                //FileProvider = new PhysicalFileProvider(@"C:\Users\Administrator\Desktop"),
+                FileProvider = new PhysicalFileProvider(@"C:\Users\Administrator\Desktop\zst"),
+                RequestPath = new Microsoft.AspNetCore.Http.PathString("/zst")
+            });
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                //FileProvider = new PhysicalFileProvider(@"C:\Users\Administrator\Desktop"),
+                FileProvider = new PhysicalFileProvider(@"C:\Users\Administrator\Desktop\zst"),
+                RequestPath = new Microsoft.AspNetCore.Http.PathString("/zst1")
+            });  
             
-           
         }
     }
 }
