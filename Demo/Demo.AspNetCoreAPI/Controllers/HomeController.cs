@@ -12,7 +12,9 @@ using System.Threading.Tasks;
 
 namespace Demo.AspNetCoreAPI.Controllers
 {
-    public class HomeController : Controller
+    //public class HomeController : Controller     
+    [ApiController]
+    public class HomeController : ControllerBase
     {
         [Route("[controller]")]
         [Authorize]
